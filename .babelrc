@@ -1,0 +1,14 @@
+{
+  "presets": [
+    "env",
+    "react",
+    "flow"
+  ],
+  "plugins": [
+    "transform-decorators-legacy",
+    "transform-function-bind",
+    "transform-object-rest-spread",
+    "transform-class-properties",
+    "transform-react-jsx-source"
+  ]
+}
