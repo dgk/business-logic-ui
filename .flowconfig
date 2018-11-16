@@ -1,0 +1,16 @@
+[ignore]
+
+[include]
+
+[libs]
+flow-typed
+[lints]
+
+[options]
+esproposal.decorators=ignore
+module.name_mapper='^Root' ->'<PROJECT_ROOT>/src'
+module.name_mapper='^Stores' ->'<PROJECT_ROOT>/src/module/stores/'
+module.name_mapper='^Core' ->'<PROJECT_ROOT>/src/core/'
+module.name_mapper='^Utils' ->'<PROJECT_ROOT>/src/utils/'
+module.name_mapper='^Features' ->'<PROJECT_ROOT>/src/features/'
+[strict]
