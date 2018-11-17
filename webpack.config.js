@@ -46,7 +46,7 @@ module.exports = {
     modules: [path.join(__dirname, "src"), "node_modules"],
     alias: {
       Root: path.resolve(__dirname, 'src/'),
-      Stores: path.resolve(__dirname, 'src/module/stores/'),
+      Models: path.resolve(__dirname, 'src/models/'),
       Utils: path.resolve(__dirname, 'src/utils/'),
       Core: path.resolve(__dirname, 'src/core/'),
       Features: path.resolve(__dirname, 'src/features/'),
