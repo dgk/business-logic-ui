@@ -1,26 +1,21 @@
 /** @flow **/
 import * as React from 'react'
-import { Link as RouteLink } from 'react-router-dom'
+import { Fragment } from 'react'
 import {
   compose,
-  withProps,
   type HOC,
 } from 'recompose'
 import styled from 'styled-components'
+import { inject, observer } from 'mobx-react'
+import _ from 'lodash'
 
-import Link from 'Features/breadcrumb/Link'
-import history from 'Root/history'
+import RouterLink from 'Features/breadcrumb/RouterLink'
 
 type TProps = {
-  history: {
-    location: {
-      pathname: string,
-    },
+  router: {
+    location: string,
   },
-  locationName: {
-    '/interface': string,
-    '/execution': string,
-  }
+  props: {},
 }
 
 const Wrapper = styled.div`
@@ -28,39 +23,44 @@ const Wrapper = styled.div`
   padding-left: 10px;
 `
 
+//TODO роутинг на последней странице переходит неправильно
 const Breadcrumb = ({
-                      history: {
-                        location: {
-                          pathname,
-                        },
+                      router: {
+                        location,
                       },
-                      locationName,
-                    }: TProps) => (
-  <Wrapper>
-    <div className='ui breadcrumb'>
-      <RouteLink to='/'>
-        <Link active={pathname === '/'}> Home </Link>
-      </RouteLink>
-      <div className='divider'> /</div>
-      {
-        pathname && pathname.length > 1 && (
-          <RouteLink to={pathname}>
-            <Link active={pathname !== '/'}> {locationName[pathname]} </Link>
-          </RouteLink>
-        )
-      }
-    </div>
-  </Wrapper>
-)
+                    }: TProps) => {
+  const navigation = _.filter(location.split('/'), Boolean)
+  const lastLocationPath = navigation[navigation.length - 1]
+  return (
+    <Wrapper>
+      <div className='ui breadcrumb'>
+        <Fragment>
+          <RouterLink link='/' active={!navigation.length}>
+            Home
+          </RouterLink>
+          <div className='divider'> /</div>
+          {
+            navigation.map((link) => (
+              <Fragment key={link}>
+                <RouterLink link={`/${link}`} active={link === lastLocationPath}>
+                  {link}
+                </RouterLink>
+                <div className='divider'> /</div>
+              </Fragment>
+            ))
+          }
+        </Fragment>
+      </div>
+    </Wrapper>
+  )
+}
 
 const composed: HOC<*, {}> = compose(
-  withProps({
-    history,
-    locationName: {
-      '/interface': 'Interface',
-      '/execution': 'Execution',
-    },
-  }),
+  inject(
+    'router',
+    'executionStore',
+  ),
+  observer,
 )
 
 export default composed(Breadcrumb)

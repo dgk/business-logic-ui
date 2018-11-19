@@ -2,6 +2,12 @@
 import * as React from 'react'
 import { Link as RouteLink } from 'react-router-dom'
 import styled from 'styled-components'
+import {
+  compose,
+  lifecycle,
+  type HOC,
+} from 'recompose'
+import { inject, observer } from 'mobx-react'
 
 import Link from 'Core/BusinessCard'
 
@@ -11,14 +17,14 @@ const Wrapper = styled.div`
 
 const Home = () => (
   <Wrapper>
-    <RouteLink to='/interface'>
+    <RouteLink to={{ pathname: '/interface' }}>
       <div className='ui cards'>
         <Link className='folder open icon' title='Interfaces'>
           List of program interfaces.
         </Link>
       </div>
     </RouteLink>
-    <RouteLink to='/execution'>
+    <RouteLink to={{ pathname: '/execution' }}>
       <div className='ui cards'>
         <Link className='lightning icon' title='Execution'>
           List of calculation logs.
@@ -28,4 +34,14 @@ const Home = () => (
   </Wrapper>
 )
 
-export default Home
+const composed: HOC<*, {}> = compose(
+  inject('router'),
+  lifecycle({
+    componentDidMount() {
+      this.props.router.setLocation('/')
+    },
+  }),
+  observer,
+)
+
+export default composed(Home)

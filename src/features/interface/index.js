@@ -36,10 +36,21 @@ const Interface = ({
 )
 
 const composed: HOC<*, TProps> = compose(
-  inject('interfaceStore'),
+  inject(
+    'interfaceStore',
+    'router',
+  ),
   lifecycle({
     componentDidMount() {
-      this.props.interfaceStore.fetch()
+      const {
+        location: {
+          pathname,
+        },
+        interfaceStore,
+        router,
+      } = this.props
+      interfaceStore.fetch()
+      router.setLocation(pathname)
     },
   }),
   observer,
