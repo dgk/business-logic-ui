@@ -1,5 +1,6 @@
 /** @flow **/
 import * as React from 'react'
+import { Link } from 'react-router-dom'
 
 type TProps = {
   date: string,
@@ -15,7 +16,9 @@ const ExecutionCard = ({
   <div className='item'>
     <i className='asterisk middle aligned icon color_blue'/>
     <div className='content'>
-      <a className='header'>{title}</a>
+      <Link to={{ pathname: `/execution/${title}` }}>
+        {title}
+      </Link>
       <div className='description'/>
       <div className='description'>
         <b>Launched: </b>

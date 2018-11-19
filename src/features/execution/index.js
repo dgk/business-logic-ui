@@ -7,7 +7,7 @@ import {
   type HOC,
 } from 'recompose'
 
-import ExecutionCard from 'Core/ExecutionCard'
+import ExecutionCard from 'Features/execution/ExecutionCard'
 import { getFullDate, getDateDiff } from 'Utils/helpers'
 
 type TProps = {

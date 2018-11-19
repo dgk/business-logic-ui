@@ -1,9 +1,11 @@
 import { types } from 'mobx-state-tree'
-import { callApi } from 'Root/utils/callApi'
 import _ from 'lodash'
 
+import { callApi } from 'Root/utils/callApi'
+import routes from 'Config/routes'
+
 const InterfaceDataItem = types.model({
-  code: types.string,
+  code: types.maybe(types.string),
   creation_time: types.string,
   environment: types.number,
   id: types.number,
@@ -29,7 +31,7 @@ const InterfaceStore = types
       self.error = error
     },
     fetch() {
-      const url = 'http://vzr.dgk.su/business-logic/rest/program-interface'
+      const url = `${routes.API_BACKUP}/business-logic/rest/program-interface`
 
       const body = {}
 

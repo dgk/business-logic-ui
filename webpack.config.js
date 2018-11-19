@@ -50,6 +50,7 @@ module.exports = {
       Utils: path.resolve(__dirname, 'src/utils/'),
       Core: path.resolve(__dirname, 'src/core/'),
       Features: path.resolve(__dirname, 'src/features/'),
+      Config: path.resolve(__dirname, 'src/config/'),
     }
   },
   devServer: {

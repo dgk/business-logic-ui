@@ -1,16 +1,19 @@
 /** @flow **/
 import * as React from 'react'
+import { Link } from 'react-router-dom'
 
 type TProps = {
   date: string,
   title: string
 }
 
-const DirectoryCard = ({ date, title }: TProps) => (
+const InterfaceCard = ({ date, title }: TProps) => (
   <div className='item'>
     <i className='folder open middle aligned icon color_blue'/>
     <div className='content'>
-      <a className='header'>{title}</a>
+      <Link to={{ pathname: `/interface/${title}` }}>
+        {title}
+      </Link>
       <div className='description'/>
       <div className='description'>
         <b>Updated:</b> <i>{date}</i>
@@ -19,4 +22,4 @@ const DirectoryCard = ({ date, title }: TProps) => (
   </div>
 )
 
-export default DirectoryCard
+export default InterfaceCard

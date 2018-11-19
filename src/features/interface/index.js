@@ -9,7 +9,7 @@ import {
 } from 'recompose'
 
 import { getFullDate } from 'Utils/helpers'
-import DirectoryCard from 'Core/DirectoryCard'
+import InterfaceCard from 'Features/interface/InterfaceCard'
 
 type TProps = {
   interfaceStore: {
@@ -29,7 +29,7 @@ const Interface = ({
   <div className='ui relaxed divided list'>
     {
       data.map(({ id, modification_time, title }) => (
-        <DirectoryCard key={id} title={title} date={getFullDate(modification_time)}/>
+        <InterfaceCard key={id} title={title} date={getFullDate(modification_time)}/>
       ))
     }
   </div>
