@@ -4,14 +4,19 @@ import { Link } from 'react-router-dom'
 
 type TProps = {
   date: string,
-  title: string
+  title: string,
+  location: { pathname: string },
 }
 
-const InterfaceCard = ({ date, title }: TProps) => (
+const ProgramCard = ({
+                       date,
+                       title,
+                       location,
+                     }: TProps) => (
   <div className='item'>
     <i className='folder open middle aligned icon color_blue'/>
     <div className='content'>
-      <Link to={{ pathname: `/interface/${title}` }}>
+      <Link to={location}>
         {title}
       </Link>
       <div className='description'/>
@@ -22,4 +27,4 @@ const InterfaceCard = ({ date, title }: TProps) => (
   </div>
 )
 
-export default InterfaceCard
+export default ProgramCard

@@ -8,21 +8,22 @@ import {
   type HOC,
 } from 'recompose'
 
+import history from 'Root/history'
 import { getFullDate } from 'Utils/helpers'
 import ProgramCard from 'Core/ProgramCard'
 
 type TProps = {
-  interfaceStore: {
+  programStore: {
     data: Array<{
       id: number,
       modification_time: string,
-      title: string
+      title: string,
     }>,
   },
 }
 
-const Interface = ({
-                     interfaceStore: {
+const Program = ({
+                   programStore: {
                        data = [],
                      },
                    }: TProps) => (
@@ -33,7 +34,8 @@ const Interface = ({
           key={id}
           title={title}
           date={getFullDate(modification_time)}
-          location={{ pathname: `/interface/${id}/program` }}/>
+          location={{ pathname: `${history.location.pathname}/${id}/version` }}
+        />
       ))
     }
   </div>
@@ -41,13 +43,13 @@ const Interface = ({
 
 const composed: HOC<*, TProps> = compose(
   inject(
-    'interfaceStore',
+    'programStore',
   ),
   lifecycle({
     componentDidMount() {
-      this.props.interfaceStore.fetch()
+      this.props.programStore.fetch()
     },
   }),
   observer,
 )
-export default composed(Interface)
+export default composed(Program)

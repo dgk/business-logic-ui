@@ -13,6 +13,8 @@ import Execution from 'Features/execution'
 import Home from 'Features/home'
 import Breadcrumb from 'Features/breadcrumb'
 import Blockly from 'Features/blockly'
+import Program from 'Features/program'
+import Version from 'Features/Version'
 
 const Wrapper = styled.div`
   padding-left: 10px;
@@ -25,6 +27,9 @@ const App = () => (
     <Wrapper>
       <Switch>
         <Route path='/' exact to='/' component={Home}/>
+        <Route path='/interface/:id/program/:id/version/:id' component={Blockly}/>
+        <Route path='/interface/:id/program/:id/version' component={Version}/>
+        <Route path='/interface/:id/program' component={Program}/>
         <Route path='/execution/:id' component={Blockly}/>
         <Route path='/interface/:id' component={Blockly}/>
         <Route path='/interface' component={Interface}/>

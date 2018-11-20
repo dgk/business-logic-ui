@@ -47,20 +47,11 @@ const Execution = ({
 
 const composed: HOC<*, {}> = compose(
   inject(
-    'router',
     'executionStore',
   ),
   lifecycle({
     componentDidMount() {
-      const {
-        router,
-        executionStore,
-        location: {
-          pathname,
-        },
-      } = this.props
-      executionStore.fetch()
-      router.setLocation(pathname)
+      this.props.executionStore.fetch()
     },
   }),
   observer,

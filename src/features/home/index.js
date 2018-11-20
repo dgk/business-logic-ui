@@ -3,11 +3,9 @@ import * as React from 'react'
 import { Link as RouteLink } from 'react-router-dom'
 import styled from 'styled-components'
 import {
-  compose,
-  lifecycle,
   type HOC,
 } from 'recompose'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 
 import Link from 'Core/BusinessCard'
 
@@ -34,14 +32,4 @@ const Home = () => (
   </Wrapper>
 )
 
-const composed: HOC<*, {}> = compose(
-  inject('router'),
-  lifecycle({
-    componentDidMount() {
-      this.props.router.setLocation('/')
-    },
-  }),
-  observer,
-)
-
-export default composed(Home)
+export default observer(Home)

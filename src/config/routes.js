@@ -1,4 +1,4 @@
 export default {
   API_ROOT: 'http://vzr.dgk.su',
-  API_BACKUP: 'http://django-business-logic.herokuapp.com',
+  API_BACKUP: 'http://django-business-logic.dgk.su',
 }

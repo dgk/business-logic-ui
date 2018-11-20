@@ -1,11 +1,6 @@
 /** @flow **/
 import * as React from 'react'
-import {
-  compose,
-  lifecycle,
-  type HOC,
-} from 'recompose'
-import { inject, observer } from 'mobx-react'
+import { type HOC } from 'recompose'
 
 type TProps = {
   props: {}
@@ -13,20 +8,4 @@ type TProps = {
 
 const Blockly = (props: TProps) => <div>Blockly</div>
 
-const composed: HOC<*, {}> = compose(
-  inject('router'),
-  lifecycle({
-    componentDidMount() {
-      const {
-        router,
-        location: {
-          pathname,
-        },
-      } = this.props
-      router.setLocation(pathname)
-    },
-  }),
-  observer,
-)
-
-export default composed(Blockly)
+export default Blockly
