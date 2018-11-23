@@ -17,7 +17,7 @@ ARG BASE_PATH="http://django-business-logic.dgk.su/business-logic/rest"
 #RUN ( export BASE_PATH=$BASE_PATH ; yarn run test && yarn run bla-bla && .. && yarn run build )
 RUN yarn run build
 
-
-FROM nginx:alpine
-
-COPY --from=builder /app/public/* /usr/share/nginx/html/
+#
+#FROM nginx:alpine
+#
+#COPY --from=builder /app/public/* /usr/share/nginx/html/

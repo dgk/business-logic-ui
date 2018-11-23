@@ -1,0 +1,14 @@
+
+version: '3'
+services:
+  backend:
+    image: dgksu/django-business-logic:demo
+    ports:
+    - 8000:8000
+  frontend:
+    build:
+      context: .
+
+    command: "sh -c 'yarn run start'"
+    ports:
+    - 8080:8080
