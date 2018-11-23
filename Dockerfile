@@ -1,23 +1,23 @@
-FROM node:alpine as buider
-#FROM node:8 as builder
-#FROM node:8-alpine as buider
+FROM node:alpine as builder
 
-RUN mkdir /build
-WORKDIR /build
+RUN mkdir /app
+WORKDIR /app
 COPY package.json .
 
 RUN npm install -g yarn && \
     yarn install
+# yarn install --frozen-lockfile
 
 COPY . .
 
-RUN yarn build
+# TODO:
+ARG BASE_PATH="http://django-business-logic.dgk.su/business-logic/rest"
+#ARG BASE_PATH="/business-logic/rest"
 
+#RUN ( export BASE_PATH=$BASE_PATH ; yarn run test && yarn run bla-bla && .. && yarn run build )
+RUN yarn run build
 
-#RUN npm install && \
-#    npm run build
 
 FROM nginx:alpine
 
-COPY --from=builder /build/public/* /var/lib/nginx/public_html/
-
+COPY --from=builder /app/public/* /usr/share/nginx/html/
