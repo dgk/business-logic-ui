@@ -14,7 +14,7 @@ import Home from 'Features/home'
 import Breadcrumb from 'Features/breadcrumb'
 import Blockly from 'Features/blockly'
 import Program from 'Features/program'
-import Version from 'Features/Version'
+import Version from 'Features/version'
 
 const Wrapper = styled.div`
   padding-left: 10px;
