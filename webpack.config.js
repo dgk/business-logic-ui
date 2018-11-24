@@ -54,9 +54,12 @@ module.exports = {
     extensions: ["*", ".js", ".jsx"],
   },
   devServer: {
+    host: "0.0.0.0",
+    port: 8080,
     proxy: {
-      // proxy URLs to backend development server
-      "/app": "http://localhost:9191"
+      "^/(admin)|(business-logic)|(static)|(books).*": {
+        "target": "http://localhost:8000"
+    }
     },
     contentBase: path.join(__dirname, "public"), // boolean | string | array, static file location
     compress: true, // enable gzip compression
