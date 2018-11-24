@@ -5,7 +5,7 @@ import { callApi } from 'Root/utils/callApi'
 import routes from 'Config/routes'
 
 const InterfaceDataItem = types.model({
-  code: types.maybe(types.string),
+  code: types.union(types.string, types.null),
   creation_time: types.string,
   environment: types.number,
   id: types.number,

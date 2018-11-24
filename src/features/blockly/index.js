@@ -1,6 +1,5 @@
 /** @flow **/
 import * as React from 'react'
-import { type HOC } from 'recompose'
 
 type TProps = {
   props: {}

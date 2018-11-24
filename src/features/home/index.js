@@ -2,9 +2,6 @@
 import * as React from 'react'
 import { Link as RouteLink } from 'react-router-dom'
 import styled from 'styled-components'
-import {
-  type HOC,
-} from 'recompose'
 import { observer } from 'mobx-react'
 
 import Link from 'Core/BusinessCard'
