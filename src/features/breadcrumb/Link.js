@@ -1,6 +1,6 @@
 /** @flow **/
 import * as React from 'react'
-import cx from 'classnames'
+import { Breadcrumb } from 'semantic-ui-react'
 
 type TProps = {
   children: React.Node,
@@ -8,9 +8,9 @@ type TProps = {
 }
 
 const Link = ({ children, active }: TProps) => (
-  <span className={cx('section', { active })}>
+  <Breadcrumb.Section link active={active}>
     {children}
-  </span>
+  </Breadcrumb.Section>
 )
 
 export default Link

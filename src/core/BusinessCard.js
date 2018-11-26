@@ -1,5 +1,6 @@
 /** @flow **/
 import * as React from 'react'
+import { Card, Icon } from 'semantic-ui-react'
 
 type TProps = {
   children: React.Node,
@@ -8,19 +9,22 @@ type TProps = {
 }
 
 const BusinessCard = ({
-                children,
-                className,
-                title,
-              }: TProps) => (
-  <div className='card' style={{ cursor: 'pointer', margin: 20 }}>
-    <div className='content'>
-      <div className='header'><i className={className}/>{title}</div>
-      <div className='meta'/>
-      <div className='description'>
+                        children,
+                        className,
+                        title,
+                      }: TProps) => (
+  <Card>
+    <Card.Content>
+      <Card.Header>
+        <Icon name={className}/>
+        {title}
+      </Card.Header>
+      <Card.Meta/>
+      <Card.Description>
         {children}
-      </div>
-    </div>
-  </div>
+      </Card.Description>
+    </Card.Content>
+  </Card>
 )
 
 export default BusinessCard

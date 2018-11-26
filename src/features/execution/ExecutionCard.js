@@ -1,6 +1,7 @@
 /** @flow **/
 import * as React from 'react'
 import { Link } from 'react-router-dom'
+import { Item, Icon } from 'semantic-ui-react'
 
 type TProps = {
   date: string,
@@ -13,21 +14,21 @@ const ExecutionCard = ({
                          title,
                          time,
                        }: TProps) => (
-  <div className='item'>
-    <i className='asterisk middle aligned icon color_blue'/>
-    <div className='content'>
+  <Item>
+    <Icon color='blue' size='middle' name='asterisk'/>
+    <Item.Content>
       <Link to={{ pathname: `/execution/${title}` }}>
         {title}
       </Link>
-      <div className='description'/>
-      <div className='description'>
+      <Item.Description/>
+      <Item.Description>
         <b>Launched: </b>
         <i>{date} </i>
         <b>run time: </b>
-        <i className='color_blue'>{time}</i>
-      </div>
-    </div>
-  </div>
+        <i>{time}</i>
+      </Item.Description>
+    </Item.Content>
+  </Item>
 )
 
 export default ExecutionCard

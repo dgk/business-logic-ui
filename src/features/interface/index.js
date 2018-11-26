@@ -1,12 +1,12 @@
 /** @flow **/
 import * as React from 'react'
 import { observer, inject } from 'mobx-react'
-
 import {
   compose,
   lifecycle,
   type HOC,
 } from 'recompose'
+import { Item } from 'semantic-ui-react'
 
 import { getFullDate } from 'Utils/helpers'
 import ProgramCard from 'Core/ProgramCard'
@@ -26,7 +26,7 @@ const Interface = ({
                        data = [],
                      },
                    }: TProps) => (
-  <div className='ui relaxed divided list'>
+  <Item.Group divided>
     {
       data.map(({ id, modification_time, title }) => (
         <ProgramCard
@@ -36,7 +36,7 @@ const Interface = ({
           location={{ pathname: `/interface/${id}/program` }}/>
       ))
     }
-  </div>
+  </Item.Group>
 )
 
 const composed: HOC<*, TProps> = compose(

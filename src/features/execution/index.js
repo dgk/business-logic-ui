@@ -6,6 +6,7 @@ import {
   lifecycle,
   type HOC,
 } from 'recompose'
+import { Item } from 'semantic-ui-react'
 
 import ExecutionCard from 'Features/execution/ExecutionCard'
 import { getFullDate, getDateDiff } from 'Utils/helpers'
@@ -26,7 +27,7 @@ const Execution = ({
                        data = [],
                      },
                    }: TProps) => (
-  <div className='ui relaxed divided list'>
+  <Item.Group divided>
     {
       data.map(({
                   id,
@@ -42,7 +43,7 @@ const Execution = ({
         />
       ))
     }
-  </div>
+  </Item.Group>
 )
 
 const composed: HOC<*, {}> = compose(

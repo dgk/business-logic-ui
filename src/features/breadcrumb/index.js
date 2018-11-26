@@ -11,8 +11,9 @@ import {
 import styled from 'styled-components'
 import { inject, observer } from 'mobx-react'
 import _ from 'lodash'
-import history from 'Root/history'
+import { Breadcrumb } from 'semantic-ui-react'
 
+import history from 'Root/history'
 import RouterLink from 'Features/breadcrumb/RouterLink'
 
 type TProps = {
@@ -25,14 +26,14 @@ type TProps = {
   getLocation: () => void,
   getNavigation: () => Array<string>,
   getCustomPath: (value: string) => string,
+  Divider: React.StatelessFunctionalComponent<any>,
 }
 
 const Wrapper = styled.div`
-  padding-top: 15px;
-  padding-left: 10px;
+    padding: 10px 15px 10px;
 `
 
-const Breadcrumb = ({
+const BreadcrumbWrapper = ({
                       initLocation,
                       router: {
                         location,
@@ -41,6 +42,7 @@ const Breadcrumb = ({
                       finallyLocation,
                       getNavigation,
                       getCustomPath,
+                      Divider,
                     }: TProps) => {
   getLocation()
   const navigation = getNavigation()
@@ -53,12 +55,12 @@ const Breadcrumb = ({
 
   return (
     <Wrapper>
-      <div className='ui breadcrumb'>
+      <Breadcrumb>
         <Fragment>
           <RouterLink link='/' active={!navigation.length}>
             Home
           </RouterLink>
-          <div className='divider'> /</div>
+          <Divider />
           {
             navigation.map((link) => {
               const active = (link === lastLocationPath && !customPath) || (link === customPath)
@@ -73,13 +75,13 @@ const Breadcrumb = ({
                   <RouterLink link={`/${targetLink}`} active={active}>
                     {title}
                   </RouterLink>
-                  <div className='divider'> /</div>
+                  <Divider />
                 </Fragment>
               )
             })
           }
         </Fragment>
-      </div>
+      </Breadcrumb>
     </Wrapper>
   )
 }
@@ -93,6 +95,7 @@ const composed: HOC<*, {}> = compose(
       'program': 'Book',
       'version': 'Book view',
     },
+    Divider: Breadcrumb.Divider
   }),
   withHandlers({
     getLocation: ({ router }) => () => {
@@ -132,4 +135,4 @@ const composed: HOC<*, {}> = compose(
   observer,
 )
 
-export default composed(Breadcrumb)
+export default composed(BreadcrumbWrapper)

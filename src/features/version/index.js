@@ -1,7 +1,7 @@
 /** @flow **/
 import * as React from 'react'
 import { observer, inject } from 'mobx-react'
-
+import { Item } from 'semantic-ui-react'
 import {
   compose,
   lifecycle,
@@ -26,7 +26,7 @@ const Version = ({
                      data = [],
                    },
                  }: TProps) => (
-  <div className='ui relaxed divided list'>
+  <Item.Group>
     {
       data.map(({ id, description, title }) => (
         <VersionCard
@@ -37,7 +37,7 @@ const Version = ({
         />
       ))
     }
-  </div>
+  </Item.Group>
 )
 
 const composed: HOC<*, TProps> = compose(

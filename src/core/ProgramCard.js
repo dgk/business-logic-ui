@@ -1,6 +1,7 @@
 /** @flow **/
 import * as React from 'react'
 import { Link } from 'react-router-dom'
+import { Item, Icon } from 'semantic-ui-react'
 
 type TProps = {
   date: string,
@@ -13,18 +14,18 @@ const ProgramCard = ({
                        title,
                        location,
                      }: TProps) => (
-  <div className='item'>
-    <i className='folder open middle aligned icon color_blue'/>
-    <div className='content'>
+  <Item>
+    <Icon name='folder open' size='middle' color='blue'/>
+    <Item.Content>
       <Link to={location}>
         {title}
       </Link>
-      <div className='description'/>
-      <div className='description'>
+      <Item.Description/>
+      <Item.Description>
         <b>Updated:</b> <i>{date}</i>
-      </div>
-    </div>
-  </div>
+      </Item.Description>
+    </Item.Content>
+  </Item>
 )
 
 export default ProgramCard
