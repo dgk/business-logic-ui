@@ -15,7 +15,7 @@ const VersionCard = ({
                        description,
                      }: TProps) => (
   <Item>
-    <Icon name='file text' size='middle' color='blue'/>
+    <Icon name='file text'  color='blue'/>
     <Item.Content>
       <Link to={location}>
         {title}

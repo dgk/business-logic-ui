@@ -15,7 +15,7 @@ const ProgramCard = ({
                        location,
                      }: TProps) => (
   <Item>
-    <Icon name='folder open' size='middle' color='blue'/>
+    <Icon name='folder open' color='blue'/>
     <Item.Content>
       <Link to={location}>
         {title}

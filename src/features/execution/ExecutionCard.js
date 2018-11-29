@@ -15,7 +15,7 @@ const ExecutionCard = ({
                          time,
                        }: TProps) => (
   <Item>
-    <Icon color='blue' size='middle' name='asterisk'/>
+    <Icon color='blue' name='asterisk'/>
     <Item.Content>
       <Link to={{ pathname: `/execution/${title}` }}>
         {title}

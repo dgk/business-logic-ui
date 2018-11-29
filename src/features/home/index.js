@@ -15,14 +15,14 @@ const Home = () => (
   <Card.Group>
     <LinkWrapper>
       <RouteLink to={{ pathname: '/interface' }}>
-        <Link className='folder open icon' title='Interfaces'>
+        <Link className='folder open' title='Interfaces'>
           List of program interfaces.
         </Link>
       </RouteLink>
     </LinkWrapper>
     <LinkWrapper>
       <RouteLink to={{ pathname: '/execution' }}>
-        <Link className='lightning icon' title='Execution'>
+        <Link className='lightning' title='Execution'>
           List of calculation logs.
         </Link>
       </RouteLink>
