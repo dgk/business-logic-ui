@@ -8,7 +8,7 @@ type TProps = {
 }
 
 const Link = ({ children, active }: TProps) => (
-  <Breadcrumb.Section link active={active}>
+  <Breadcrumb.Section active={active}>
     {children}
   </Breadcrumb.Section>
 )
