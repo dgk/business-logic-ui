@@ -19,7 +19,7 @@ const ProgramDataItem = types.model({
 const ProgramStore = types
   .model('Store', {
     isFetching: types.boolean,
-    error: types.null,
+    error: types.union(types.string, types.null),
     data: types.optional(types.array(ProgramDataItem), []),
   })
   .actions(self => ({
@@ -49,7 +49,7 @@ const ProgramStore = types
         onSuccess: (json) => self.setData(_.get(json, 'data.results', [])),
         onError: (error) => {
           self.setFetching(false)
-          self.setError(error)
+          self.setError(error.toString())
         },
       })
     },

@@ -19,7 +19,7 @@ const BloclyData = types.model({
 const BlocklyStore = types
   .model('Store', {
     isFetching: types.boolean,
-    error: types.null,
+    error: types.union(types.string, types.null),
     data: types.optional(types.array(BloclyData), []),
   })
   .actions(self => ({
@@ -49,7 +49,7 @@ const BlocklyStore = types
         onSuccess: (json) => self.setData(_.get(json, 'data')),
         onError: (error) => {
           self.setFetching(false)
-          self.setError(error)
+          self.setError(error.toString())
         },
       })
     },
