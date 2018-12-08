@@ -1,10 +1,13 @@
-FROM node:alpine as builder
+FROM node:8-alpine as builder
+#FROM node:alpine as builder
 
 RUN mkdir /app
 WORKDIR /app
 COPY package.json .
 
-RUN npm install -g yarn && \
+RUN apk add --update git python build-base && \
+    npm config set unsafe-perm true && \
+    npm install -g yarn && \
     yarn install
 # yarn install --frozen-lockfile
 
