@@ -1,11 +1,6 @@
 /** @flow **/
 import * as React from 'react'
 import { observer, inject } from 'mobx-react'
-import {
-  compose,
-  lifecycle,
-  type HOC,
-} from 'recompose'
 import { Item } from 'semantic-ui-react'
 
 import { getFullDate } from 'Utils/helpers'
@@ -18,36 +13,28 @@ type TProps = {
       modification_time: string,
       title: string
     }>,
+    fetch: Function,
   },
 }
 
-const Interface = ({
-                     interfaceStore: {
-                       data = [],
-                     },
-                   }: TProps) => (
-  <Item.Group divided>
-    {
-      data.map(({ id, modification_time, title }) => (
-        <ProgramCard
-          key={id}
-          title={title}
-          date={getFullDate(modification_time)}
-          location={{ pathname: `/interface/${id}/program` }}/>
-      ))
-    }
-  </Item.Group>
-)
+const Interface = observer(({ interfaceStore: { data = [], fetch } }: TProps) => {
+  React.useEffect(() => {
+    fetch()
+  }, [fetch])
 
-const composed: HOC<*, TProps> = compose(
-  inject(
-    'interfaceStore',
-  ),
-  lifecycle({
-    componentDidMount() {
-      this.props.interfaceStore.fetch()
-    },
-  }),
-  observer,
-)
-export default composed(Interface)
+  return (
+    <Item.Group divided>
+      {
+        data.map(({ id, modification_time, title }) => (
+          <ProgramCard
+            key={id}
+            title={title}
+            date={getFullDate(modification_time)}
+            location={{ pathname: `/interface/${id}/program` }}/>
+        ))
+      }
+    </Item.Group>
+  )
+})
+
+export default inject('interfaceStore')(Interface)

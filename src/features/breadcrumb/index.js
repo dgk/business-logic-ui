@@ -1,13 +1,6 @@
 /** @flow **/
-import * as React from 'react'
+import * as React, { useEffect, useState } from 'react'
 import { Fragment } from 'react'
-import {
-  compose,
-  defaultProps,
-  lifecycle,
-  withHandlers,
-  type HOC,
-} from 'recompose'
 import styled from 'styled-components'
 import { inject, observer } from 'mobx-react'
 import _ from 'lodash'
@@ -33,20 +26,50 @@ const Wrapper = styled.div`
     padding: 10px 15px 10px;
 `
 
-const BreadcrumbWrapper = ({
-                      initLocation,
+const BreadcrumbWrapper = inject('router')(observer(({
+                      initLocation = {
+                        'program': 'Book',
+                        'version': 'Book view',
+                      },
                       router: {
                         location,
                       },
-                      getLocation,
                       finallyLocation,
-                      getNavigation,
-                      getCustomPath,
-                      Divider,
+                      Divider = Breadcrumb.Divider,
                     }: TProps) => {
-  getLocation()
-  const navigation = getNavigation()
+  const [navigation, setNavigation] = useState([]);
+
+  useEffect(() => {
+    const unlisten = history.listen((location) => {
+      localStorage.setItem('backLocation', location.pathname)
+      router.setLocation(location.pathname)
+    })
+
+    const backLocation = localStorage.getItem('backLocation') || '/'
+    if (router.location !== backLocation) {
+      router.setLocation(backLocation)
+    }
+
+    return () => {
+      unlisten();
+      localStorage.removeItem('backLocation')
+    }
+  }, [])
+
+  useEffect(() => {
+    setNavigation(_.filter(location.split('/'), (string) => (
+      string !== Boolean && isNaN(string)
+    )))
+  }, [location])
+
   const lastLocationPath = navigation[navigation.length - 1]
+
+  const getCustomPath = (lastLocationPath) => {
+    const finallyElement = location.split('/')
+    if (lastLocationPath && !isNaN(finallyElement[finallyElement.length - 1])) {
+      return 'blockly'
+    }
+  }
 
   const customPath = getCustomPath(lastLocationPath)
   if (customPath) {
@@ -84,55 +107,6 @@ const BreadcrumbWrapper = ({
       </Breadcrumb>
     </Wrapper>
   )
-}
+}))
 
-const composed: HOC<*, {}> = compose(
-  inject(
-    'router',
-  ),
-  defaultProps({
-    initLocation: {
-      'program': 'Book',
-      'version': 'Book view',
-    },
-    Divider: Breadcrumb.Divider
-  }),
-  withHandlers({
-    getLocation: ({ router }) => () => {
-      history.listen((location) => {
-        localStorage.setItem('backLocation', location.pathname)
-        router.setLocation(location.pathname)
-      })
-    },
-    getNavigation: ({ router: { location } }) => () => (
-      _.filter(location.split('/'), (string) => (
-        string !== Boolean && isNaN(string)
-      ))
-    ),
-    getCustomPath: ({
-                      finallyLocation,
-                      router: {
-                        location,
-                      },
-                    }) => (lastLocationPath) => {
-      const finallyElement = location.split('/')
-      if (lastLocationPath && !isNaN(finallyElement[finallyElement.length - 1])) {
-        return 'blockly'
-      }
-    },
-  }),
-  lifecycle({
-    componentDidMount() {
-      const backLocation = localStorage.getItem('backLocation') || '/'
-      if (this.props.router.location !== backLocation) {
-        this.props.router.setLocation(backLocation)
-      }
-    },
-    componentWillUnmount() {
-      localStorage.removeItem('backLocation')
-    },
-  }),
-  observer,
-)
-
-export default composed(BreadcrumbWrapper)
+export default BreadcrumbWrapper

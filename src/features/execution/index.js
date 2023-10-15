@@ -1,11 +1,6 @@
 /** @flow **/
 import * as React from 'react'
 import { observer, inject } from 'mobx-react'
-import {
-  compose,
-  lifecycle,
-  type HOC,
-} from 'recompose'
 import { Item } from 'semantic-ui-react'
 
 import ExecutionCard from 'Features/execution/ExecutionCard'
@@ -19,42 +14,39 @@ type TProps = {
       title: string,
       finish_time: string
     }>,
+    fetch: Function,
   },
 }
 
-const Execution = ({
+const Execution = observer(({
                      executionStore: {
                        data = [],
+                       fetch,
                      },
-                   }: TProps) => (
-  <Item.Group divided>
-    {
-      data.map(({
-                  id,
-                  start_time,
-                  title,
-                  finish_time,
-                }) => (
-        <ExecutionCard
-          key={id}
-          title={id.toString()}
-          date={getFullDate(start_time)}
-          time={getDateDiff({ start: start_time, finish: finish_time }) / 1000}
-        />
-      ))
-    }
-  </Item.Group>
-)
+                   }: TProps) => {
+  React.useEffect(() => {
+    fetch();
+  }, [fetch]);
 
-const composed: HOC<*, {}> = compose(
-  inject(
-    'executionStore',
-  ),
-  lifecycle({
-    componentDidMount() {
-      this.props.executionStore.fetch()
-    },
-  }),
-  observer,
-)
-export default composed(Execution)
+  return (
+    <Item.Group divided>
+      {
+        data.map(({
+                    id,
+                    start_time,
+                    title,
+                    finish_time,
+                  }) => (
+          <ExecutionCard
+            key={id}
+            title={id.toString()}
+            date={getFullDate(start_time)}
+            time={getDateDiff({ start: start_time, finish: finish_time }) / 1000}
+          />
+        ))
+      }
+    </Item.Group>
+  );
+});
+
+export default inject('executionStore')(Execution);
