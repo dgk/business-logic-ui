@@ -14,7 +14,7 @@ RUN apk add --update git python build-base && \
 COPY . .
 
 # TODO:
-ARG BASE_PATH="http://django-business-logic.dgk.su/business-logic/rest"
+ARG BASE_PATH="https://django-business-logic-demo.dev.dgk.su/business-logic/rest"
 #ARG BASE_PATH="/business-logic/rest"
 
 #RUN ( export BASE_PATH=$BASE_PATH ; yarn run test && yarn run bla-bla && .. && yarn run build )
