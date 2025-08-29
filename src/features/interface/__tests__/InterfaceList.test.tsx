@@ -3,7 +3,7 @@ import { vi } from 'vitest'
 import { MemoryRouter } from 'react-router-dom'
 import '@testing-library/jest-dom'
 
-import InterfaceList from './InterfaceList'
+import InterfaceList from '../InterfaceList'
 
 let mockRootStore: any
 vi.mock('../../models', () => ({
