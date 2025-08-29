@@ -16,6 +16,6 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,
-    exclude: ['node_modules/**', 'dist/**', 'cypress/**', 'old/**'],
+    exclude: ['node_modules/**', 'dist/**', 'cypress/**', 'old/**', 'old-v1/**', 'old-v2/**'],
   },
 })
