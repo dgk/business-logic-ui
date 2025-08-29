@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { vi } from 'vitest'
 import { MemoryRouter } from 'react-router-dom'
 import '@testing-library/jest-dom'
@@ -6,7 +6,7 @@ import '@testing-library/jest-dom'
 import InterfaceList from '../InterfaceList'
 
 let mockRootStore: any
-vi.mock('../../models', () => ({
+vi.mock('../../../models', () => ({
   useRootStore: () => mockRootStore,
 }))
 
@@ -22,17 +22,18 @@ describe('InterfaceList', () => {
     }
   })
 
-  it('shows error message when error is present', () => {
+  it('shows error message when error is present', async () => {
     mockRootStore.interfaceStore.error = 'Network error'
     render(
       <MemoryRouter>
         <InterfaceList />
       </MemoryRouter>,
     )
+    await waitFor(() => expect(mockRootStore.interfaceStore.fetch).toHaveBeenCalled())
     expect(screen.getByText('Network error')).toBeInTheDocument()
   })
 
-  it('renders list when data is loaded', () => {
+  it('renders list when data is loaded', async () => {
     mockRootStore.interfaceStore.data = [
       {
         id: 1,
@@ -45,6 +46,7 @@ describe('InterfaceList', () => {
         <InterfaceList />
       </MemoryRouter>,
     )
+    await waitFor(() => expect(mockRootStore.interfaceStore.fetch).toHaveBeenCalled())
     expect(screen.getByText('Interface 1')).toBeInTheDocument()
   })
 })
