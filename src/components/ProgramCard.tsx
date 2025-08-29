@@ -4,14 +4,14 @@ import { Item, Icon } from 'semantic-ui-react'
 interface ProgramCardProps {
   date: string
   title: string
-  location: { pathname: string }
+  to: string
 }
 
-const ProgramCard = ({ date, title, location }: ProgramCardProps) => (
+const ProgramCard = ({ date, title, to }: ProgramCardProps) => (
   <Item>
     <Icon name='folder open' color='blue' />
     <Item.Content>
-      <Link to={location}>
+      <Link to={to}>
         {title}
       </Link>
       <Item.Description />
