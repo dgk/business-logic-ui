@@ -3,10 +3,12 @@ import { useLocalObservable } from 'mobx-react-lite'
 
 import { RouterStore } from './Router'
 import { InterfaceStoreModel, InterfaceStore } from './Interface'
+import { ProgramStoreModel, ProgramStore } from './Program'
 
 export interface RootStore {
   router: RouterStore
   interfaceStore: InterfaceStore
+  programStore: ProgramStore
 }
 
 const RootStoreContext = createContext<RootStore | null>(null)
@@ -15,6 +17,11 @@ export function RootStoreProvider({ children }: { children: ReactNode }) {
   const store = useLocalObservable<RootStore>(() => ({
     router: new RouterStore(),
     interfaceStore: InterfaceStoreModel.create({
+      isFetching: false,
+      error: null,
+      data: [],
+    }),
+    programStore: ProgramStoreModel.create({
       isFetching: false,
       error: null,
       data: [],
@@ -35,4 +42,8 @@ export function useRootStore(): RootStore {
 
 export function useInterfaceStore(): InterfaceStore {
   return useRootStore().interfaceStore
+}
+
+export function useProgramStore(): ProgramStore {
+  return useRootStore().programStore
 }
