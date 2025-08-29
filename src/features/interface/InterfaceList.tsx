@@ -1,9 +1,10 @@
 import { useEffect } from 'react'
 import { observer } from 'mobx-react-lite'
-import { Item } from 'semantic-ui-react'
+import { Item, Segment } from 'semantic-ui-react'
 
 import ProgramCard from '../../components/ProgramCard'
 import { useRootStore } from '../../models'
+import { getFullDate } from '../../utils/date'
 
 const InterfaceList = observer(() => {
   const { interfaceStore } = useRootStore()
@@ -13,16 +14,18 @@ const InterfaceList = observer(() => {
   }, [interfaceStore])
 
   return (
-    <Item.Group>
-      {interfaceStore.data.map(item => (
-        <ProgramCard
-          key={item.id}
-          date={item.modification_time}
-          title={item.title}
-          to={`/interface/${item.id}/program`}
-        />
-      ))}
-    </Item.Group>
+    <Segment>
+      <Item.Group divided>
+        {interfaceStore.data.map(item => (
+          <ProgramCard
+            key={item.id}
+            date={getFullDate(item.modification_time)}
+            title={item.title}
+            to={`/interface/${item.id}/program`}
+          />
+        ))}
+      </Item.Group>
+    </Segment>
   )
 })
 
