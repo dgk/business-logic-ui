@@ -1,8 +1,7 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom'
-import React from 'react'
+import { createHashRouter, Navigate } from 'react-router-dom'
 import InterfaceList from './features/interface/InterfaceList'
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
     element: <Navigate to="/interface" replace />,
