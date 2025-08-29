@@ -7,7 +7,7 @@ const Layout = () => {
     .filter(match => match.handle && (match.handle as any).crumb)
     .map(match => ({
       crumb: typeof (match.handle as any).crumb === 'function'
-        ? (match.handle as any).crumb(match.data)
+        ? (match.handle as any).crumb(match)
         : (match.handle as any).crumb,
       pathname: match.pathname || ''
     }))

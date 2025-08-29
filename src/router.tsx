@@ -1,4 +1,4 @@
-import { createHashRouter } from 'react-router-dom'
+import { createHashRouter, Outlet } from 'react-router-dom'
 import Layout from './components/Layout'
 import HomePage from './features/home/HomePage'
 import InterfaceList from './features/interface/InterfaceList'
@@ -6,41 +6,79 @@ import ProgramList from './features/program/ProgramList'
 import VersionList from './features/version/VersionList'
 import ProgramVersionView from './features/program-version/ProgramVersionView'
 import ExecutionList from './features/execution/ExecutionList'
+import { InterfaceCrumb, ProgramCrumb, VersionCrumb } from './components/breadcrumbs'
 
 const router = createHashRouter([
   {
     path: '/',
     element: <Layout />,
+    handle: { crumb: () => 'Home' },
     children: [
       {
         index: true,
         element: <HomePage />,
-        handle: { crumb: () => 'Home' },
       },
       {
         path: 'interface',
-        element: <InterfaceList />,
+        element: <Outlet />,
         handle: { crumb: () => 'Interfaces' },
-      },
-      {
-        path: 'interface/:interfaceId/program',
-        element: <ProgramList />,
-        handle: { crumb: () => 'Programs' },
-      },
-      {
-        path: 'interface/:interfaceId/program/:programId/version',
-        element: <VersionList />,
-        handle: { crumb: () => 'Versions' },
-      },
-      {
-        path: 'interface/:interfaceId/program/:programId/version/:versionId',
-        element: <ProgramVersionView />,
-        handle: { crumb: () => 'Program Version' },
+        children: [
+          {
+            index: true,
+            element: <InterfaceList />,
+          },
+          {
+            path: ':interfaceId',
+            element: <Outlet />,
+            handle: (match: any) => <InterfaceCrumb interfaceId={match.params.interfaceId} />,
+            children: [
+              {
+                path: 'program',
+                element: <Outlet />,
+                children: [
+                  {
+                    index: true,
+                    element: <ProgramList />,
+                  },
+                  {
+                    path: ':programId',
+                    element: <Outlet />,
+                    handle: (match: any) => (
+                      <ProgramCrumb
+                        interfaceId={match.params.interfaceId}
+                        programId={match.params.programId}
+                      />
+                    ),
+                    children: [
+                      {
+                        path: 'version',
+                        element: <Outlet />,
+                        children: [
+                          {
+                            index: true,
+                            element: <VersionList />,
+                          },
+                          {
+                            path: ':versionId',
+                            element: <ProgramVersionView />,
+                            handle: (match: any) => (
+                              <VersionCrumb versionId={match.params.versionId} />
+                            ),
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       },
       {
         path: 'execution',
         element: <ExecutionList />,
-        handle: { crumb: () => 'Execution' },
+        handle: { crumb: () => 'Logs' },
       },
     ],
   },
