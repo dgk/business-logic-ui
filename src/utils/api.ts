@@ -1,5 +1,16 @@
 import axios, { AxiosRequestConfig } from 'axios'
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || ''
+
+const resolveUrl = (url: string): string => {
+  if (/^https?:\/\//.test(url)) {
+    return url
+  }
+  const base = API_BASE_URL.replace(/\/$/, '')
+  const path = url.replace(/^\//, '')
+  return `${base}/${path}`
+}
+
 export interface CallApiParams<T> {
   url: string
   config?: AxiosRequestConfig
@@ -10,10 +21,10 @@ export interface CallApiParams<T> {
 
 export const getResult = <T>(
   url: string,
-  config: AxiosRequestConfig = {}
+  config: AxiosRequestConfig = {},
 ): Promise<T> => {
   return axios
-    .get<T>(url, { crossDomain: true, ...config })
+    .get<T>(resolveUrl(url), { crossDomain: true, ...config })
     .then(response => response.data)
 }
 
