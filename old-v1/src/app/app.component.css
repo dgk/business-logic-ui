@@ -1,0 +1,86 @@
+html, body{
+  height: 100%;
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, Helvetica, sans-serif
+}
+
+span.active {
+  background-color: gray;
+}
+
+body {
+  background: #f5f5f5;
+}
+
+.md-list-item {
+  cursor: pointer;
+}
+
+.ui.positive.buttons .active.button, .ui.positive.buttons .active.button:active, .ui.positive.active.button, .ui.positive.button .active.button:active
+{
+  background-color: #009688!important;
+}
+
+.ui.positive.buttons .button, .ui.positive.button
+{
+  background-color: #009688!important;
+}
+
+.blocklyTreeRow {
+  padding-top: 0.75rem !important;
+  padding-bottom: 2rem !important;
+  border-left-width: 12px !important;
+}
+.blocklyTreeRoot div div div div .blocklyTreeRow {
+  border-left-width: 18px !important;
+  padding-top: 0px !important;
+  padding-bottom: 1.6rem !important;
+}
+
+
+.btn-group {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.btn-group-item {
+  position: relative;
+  float: left;
+  line-height: 20px;
+
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: #eee;
+  background-image: -webkit-linear-gradient(#fcfcfc, #eee);
+  background-image: linear-gradient(#fcfcfc, #eee);
+  border: 1px solid #d5d5d5;
+}
+
+.btn-group-item:focus{
+  outline: none!important;
+}
+
+.btn-group-item:hover{
+  background-image: linear-gradient(#eee, #ddd);
+}
+
+.btn-group-item:first-child {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.btn-group-item:last-child {
+  border-right-width: 1px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
