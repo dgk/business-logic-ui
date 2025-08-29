@@ -30,12 +30,8 @@ const ProgramVersionView = observer(() => {
           {version.description}
         </List.Item>
         <List.Item>
-          <List.Header>Environment</List.Header>
-          {version.environment ?? 'N/A'}
-        </List.Item>
-        <List.Item>
           <List.Header>Is Default</List.Header>
-          {version.is_default ? <Icon name='check' /> : 'No'}
+          {version.is_default ? <Icon name='check' /> : null}
         </List.Item>
       </List>
     </Segment>
