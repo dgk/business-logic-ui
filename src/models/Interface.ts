@@ -32,10 +32,10 @@ export const InterfaceStoreModel = types
     },
     fetch: flow(function* fetch() {
       try {
-        yield callApi<{ data: { results: InterfaceDataItemSnapshot[] } }>({
+        yield callApi<{ results: InterfaceDataItemSnapshot[] }>({
           url: '/rest/program-interface',
           onRequest: () => self.setFetching(true),
-          onSuccess: json => self.setData(json.data.results),
+          onSuccess: json => self.setData(json.results ?? []),
           onError: err => self.setError(err),
         })
       } finally {
