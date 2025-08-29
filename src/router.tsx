@@ -1,11 +1,11 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter, Navigate } from 'react-router-dom'
 import React from 'react'
 import InterfaceList from './features/interface/InterfaceList'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <div>Home</div>,
+    element: <Navigate to="/interface" replace />,
   },
   {
     path: '/interface',
