@@ -8,7 +8,7 @@ import ProgramVersionView from './features/program-version/ProgramVersionView'
 import ExecutionList from './features/execution/ExecutionList'
 import { InterfaceCrumb, ProgramCrumb, VersionCrumb } from './components/breadcrumbs'
 
-const router = createHashRouter([
+export const routes = [
   {
     path: '/',
     element: <Layout />,
@@ -30,7 +30,11 @@ const router = createHashRouter([
           {
             path: ':interfaceId',
             element: <Outlet />,
-            handle: (match: any) => <InterfaceCrumb interfaceId={match.params.interfaceId} />,
+            handle: {
+              crumb: (match: any) => (
+                <InterfaceCrumb interfaceId={match.params.interfaceId} />
+              ),
+            },
             children: [
               {
                 path: 'program',
@@ -43,12 +47,14 @@ const router = createHashRouter([
                   {
                     path: ':programId',
                     element: <Outlet />,
-                    handle: (match: any) => (
-                      <ProgramCrumb
-                        interfaceId={match.params.interfaceId}
-                        programId={match.params.programId}
-                      />
-                    ),
+                    handle: {
+                      crumb: (match: any) => (
+                        <ProgramCrumb
+                          interfaceId={match.params.interfaceId}
+                          programId={match.params.programId}
+                        />
+                      ),
+                    },
                     children: [
                       {
                         path: 'version',
@@ -61,9 +67,11 @@ const router = createHashRouter([
                           {
                             path: ':versionId',
                             element: <ProgramVersionView />,
-                            handle: (match: any) => (
-                              <VersionCrumb versionId={match.params.versionId} />
-                            ),
+                            handle: {
+                              crumb: (match: any) => (
+                                <VersionCrumb versionId={match.params.versionId} />
+                              ),
+                            },
                           },
                         ],
                       },
@@ -82,6 +90,8 @@ const router = createHashRouter([
       },
     ],
   },
-])
+]
+
+const router = createHashRouter(routes)
 
 export default router
