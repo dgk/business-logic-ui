@@ -34,6 +34,7 @@ export const routes = [
               crumb: (match: any) => (
                 <InterfaceCrumb interfaceId={match.params.interfaceId} />
               ),
+              path: (match: any) => `/interface/${match.params.interfaceId}/program`,
             },
             children: [
               {
@@ -54,6 +55,8 @@ export const routes = [
                           programId={match.params.programId}
                         />
                       ),
+                      path: (match: any) =>
+                        `/interface/${match.params.interfaceId}/program/${match.params.programId}/version`,
                     },
                     children: [
                       {
