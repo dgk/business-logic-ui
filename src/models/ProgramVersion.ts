@@ -11,7 +11,6 @@ export const ProgramVersionModel = types.model('ProgramVersion', {
   environment: types.maybeNull(types.number),
   is_default: types.boolean,
   program: types.number,
-  url: types.string,
 })
 
 export interface ProgramVersion extends Instance<typeof ProgramVersionModel> {}
