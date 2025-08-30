@@ -5,12 +5,16 @@ const Layout = () => {
   const matches = useMatches()
   const breadcrumbs = matches
     .filter(match => match.handle && (match.handle as any).crumb)
-    .map(match => ({
-      crumb: typeof (match.handle as any).crumb === 'function'
-        ? (match.handle as any).crumb(match)
-        : (match.handle as any).crumb,
-      pathname: match.pathname || ''
-    }))
+    .map(match => {
+      const handle = match.handle as any
+      const crumb = typeof handle.crumb === 'function' ? handle.crumb(match) : handle.crumb
+      const pathname = handle.path
+        ? typeof handle.path === 'function'
+          ? handle.path(match)
+          : handle.path
+        : match.pathname || ''
+      return { crumb, pathname }
+    })
 
   return (
     <Container style={{ marginTop: '1em' }}>

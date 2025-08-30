@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import { vi } from 'vitest'
 import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 import '@testing-library/jest-dom'
@@ -9,6 +9,7 @@ let mockRootStore: any
 vi.mock('../../models', () => ({
   useInterfaceStore: () => mockRootStore.interfaceStore,
   useProgramStore: () => mockRootStore.programStore,
+  useVersionStore: () => mockRootStore.versionStore,
   useProgramVersionStore: () => mockRootStore.programVersionStore,
   useRootStore: () => mockRootStore,
 }))
@@ -26,6 +27,10 @@ describe('Breadcrumbs', () => {
       },
       programVersionStore: {
         data: null,
+        fetch: vi.fn(),
+      },
+      versionStore: {
+        data: [],
         fetch: vi.fn(),
       },
     }
@@ -71,5 +76,36 @@ describe('Breadcrumbs', () => {
     render(<RouterProvider router={router} />)
     expect(screen.getByText('Home')).toBeInTheDocument()
     expect(screen.getByText('Logs')).toBeInTheDocument()
+  })
+
+  it('renders program list when navigating via interface breadcrumb', async () => {
+    mockRootStore.interfaceStore.data = [
+      { id: 1, title: 'Interface 1' },
+    ]
+    mockRootStore.programStore.data = [
+      { id: 2, title: 'Program A' },
+    ]
+    mockRootStore.programVersionStore.data = { id: 3, title: 'Version 1' }
+    const router = createMemoryRouter(routes, { initialEntries: ['/interface/1/program/2/version/3'] })
+    render(<RouterProvider router={router} />)
+    fireEvent.click(screen.getByText('Interface 1'))
+    expect(await screen.findByText('Program A')).toBeInTheDocument()
+  })
+
+  it('renders version list when navigating via program breadcrumb', async () => {
+    mockRootStore.interfaceStore.data = [
+      { id: 1, title: 'Interface 1' },
+    ]
+    mockRootStore.programStore.data = [
+      { id: 2, title: 'Program A' },
+    ]
+    mockRootStore.versionStore.data = [
+      { id: 3, title: 'Version 1', description: '' },
+    ]
+    mockRootStore.programVersionStore.data = { id: 3, title: 'Version 1' }
+    const router = createMemoryRouter(routes, { initialEntries: ['/interface/1/program/2/version/3'] })
+    render(<RouterProvider router={router} />)
+    fireEvent.click(screen.getByText('Program A'))
+    expect(await screen.findByText('Version 1')).toBeInTheDocument()
   })
 })
