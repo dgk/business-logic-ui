@@ -4,6 +4,7 @@ import { observer } from 'mobx-react-lite'
 import { Segment, Header, List, Icon } from 'semantic-ui-react'
 
 import { useProgramVersionStore } from '../../models'
+import BlocklyCanvas from '../../components/BlocklyCanvas'
 
 const ProgramVersionView = observer(() => {
   const { versionId } = useParams()
@@ -38,8 +39,8 @@ const ProgramVersionView = observer(() => {
           {version.description}
         </List.Item>
         <List.Item>
-          <List.Header>XML</List.Header>
-          <pre>{version.xml}</pre>
+          <List.Header>Logic</List.Header>
+          <BlocklyCanvas toolboxXml="<xml></xml>" readOnly />
         </List.Item>
         <List.Item>
           <List.Header>Is Default</List.Header>
