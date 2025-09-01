@@ -40,11 +40,7 @@ const ProgramVersionView = observer(() => {
         </List.Item>
         <List.Item>
           <List.Header>Logic</List.Header>
-          <BlocklyCanvas
-            toolboxXml="<xml />"
-            initialXml={version.xml ?? undefined}
-            readOnly
-          />
+          <BlocklyCanvas toolboxXml="<xml></xml>" readOnly />
         </List.Item>
         <List.Item>
           <List.Header>Is Default</List.Header>
