@@ -35,7 +35,10 @@ describe('ProgramVersionView', () => {
   it('renders Blockly canvas', async () => {
     const { container } = render(<ProgramVersionView />)
     await waitFor(() => {
-      expect(container.querySelector('.blocklySvg')).toBeInTheDocument()
+      const svg = container.querySelector('.blocklySvg') as SVGSVGElement
+      expect(svg).toBeInTheDocument()
+      const rootDiv = svg.parentElement?.parentElement as HTMLDivElement
+      expect(rootDiv.style.height).toBe('400px')
     })
   })
 })

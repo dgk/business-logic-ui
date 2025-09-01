@@ -97,6 +97,7 @@ const BlocklyCanvas = forwardRef<BlocklyCanvasHandle, BlocklyCanvasProps>(
 
       const handleResize = () => Blockly.svgResize(workspace)
       window.addEventListener('resize', handleResize)
+      handleResize()
 
       const listener = () => {
         if (!onXmlChangeRef.current) return
@@ -121,7 +122,7 @@ const BlocklyCanvas = forwardRef<BlocklyCanvasHandle, BlocklyCanvasProps>(
       <div
         ref={divRef}
         className={className}
-        style={{ width: '100%', height: '100%', minHeight: '400px' }}
+        style={{ width: '100%', height: '400px' }}
       />
     )
   }
