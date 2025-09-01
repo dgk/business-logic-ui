@@ -74,7 +74,13 @@ const BlocklyCanvas = forwardRef<BlocklyCanvasHandle, BlocklyCanvasProps>(
         defineCustomBlocks(Blockly)
       }
 
-      const toolboxDom = parseXml(toolboxXml)
+      let toolboxDom: Element
+      try {
+        toolboxDom = parseXml(toolboxXml)
+      } catch (e) {
+        // Re-throw synchronously so callers/tests can catch invalid toolbox errors
+        throw e
+      }
 
       const workspace = Blockly.inject(divRef.current, {
         toolbox: toolboxDom,

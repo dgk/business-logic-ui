@@ -1,7 +1,8 @@
 import { FC, useEffect } from 'react'
+import { observer } from 'mobx-react-lite'
 import { useInterfaceStore, useProgramStore, useProgramVersionStore } from '../models'
 
-export const InterfaceCrumb: FC<{ interfaceId?: string }> = ({ interfaceId }) => {
+export const InterfaceCrumb: FC<{ interfaceId?: string }> = observer(({ interfaceId }) => {
   const interfaceStore = useInterfaceStore()
 
   useEffect(() => {
@@ -12,9 +13,9 @@ export const InterfaceCrumb: FC<{ interfaceId?: string }> = ({ interfaceId }) =>
 
   const item = interfaceStore.data.find(i => i.id === Number(interfaceId))
   return <>{item ? item.title : ''}</>
-}
+})
 
-export const ProgramCrumb: FC<{ interfaceId?: string; programId?: string }> = ({ interfaceId, programId }) => {
+export const ProgramCrumb: FC<{ interfaceId?: string; programId?: string }> = observer(({ interfaceId, programId }) => {
   const programStore = useProgramStore()
 
   useEffect(() => {
@@ -25,9 +26,9 @@ export const ProgramCrumb: FC<{ interfaceId?: string; programId?: string }> = ({
 
   const item = programStore.data.find(p => p.id === Number(programId))
   return <>{item ? item.title : ''}</>
-}
+})
 
-export const VersionCrumb: FC<{ versionId?: string }> = ({ versionId }) => {
+export const VersionCrumb: FC<{ versionId?: string }> = observer(({ versionId }) => {
   const programVersionStore = useProgramVersionStore()
 
   useEffect(() => {
@@ -37,5 +38,5 @@ export const VersionCrumb: FC<{ versionId?: string }> = ({ versionId }) => {
   }, [versionId, programVersionStore])
 
   return <>{programVersionStore.data?.title ?? ''}</>
-}
+})
 

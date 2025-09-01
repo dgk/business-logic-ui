@@ -37,9 +37,15 @@ describe('BlocklyCanvas', () => {
   })
 
   it('throws on invalid XML', () => {
-    expect(() => render(<BlocklyCanvas toolboxXml="<notxml></notxml>" />)).toThrow(
-      'Root element must be <xml>.'
-    )
+    // Suppress React console.error noise for this intentionally thrown error
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
+    try {
+      expect(() => render(<BlocklyCanvas toolboxXml="<notxml></notxml>" />)).toThrow(
+        'Root element must be <xml>.'
+      )
+    } finally {
+      spy.mockRestore()
+    }
   })
 })
 
